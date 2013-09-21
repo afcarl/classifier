@@ -33,7 +33,7 @@ function classify(model, features) {
       i, j, p;
 
   for(i = model.labels.length; i--; ) {
-    p = Math.log((model.labels[i].total + 1) / (model.total + 1));
+    p = Math.log(model.labels[i].total / model.total);
     for(j = features.length; j--; )
       p += Math.log(((model.labels[i].features[features[j]]|0) + 1) / (model.labels[i].total + 1));
 
