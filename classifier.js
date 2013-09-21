@@ -22,10 +22,13 @@ var Classifier;
   };
 
   Classifier = function(power, smoothing) {
+    power = +power;
+    smoothing = smoothing|0;
+
     this.labels = {};
     this.total = 0;
-    this.powerConstant = (power !== undefined ? power : 1.0);
-    this.smoothingConstant = (smoothing !== undefined ? smoothing : 1);
+    this.power = isFinite(power) ? power : 1.0;
+    this.smoothing = smoothing > 0 ? smoothing : 1;
   };
 
   Classifier.prototype = {
@@ -47,10 +50,10 @@ var Classifier;
 
       for(label in this.labels)
         if(this.labels.hasOwnProperty(label)) {
-          score = this.powerConstant * Math.log((this.labels[label].total + this.smoothingConstant) / (this.total + this.smoothingConstant));
+          score = this.power * Math.log((this.labels[label].total + this.smoothing) / (this.total + this.smoothing));
 
           for(i = features.length; i--; )
-            score += Math.log((this.labels[label].get(features[i]) + this.smoothingConstant) / (this.labels[label].total + this.smoothingConstant));
+            score += Math.log((this.labels[label].get(features[i]) + this.smoothing) / (this.labels[label].total + this.smoothing));
 
           if(score > bestScore) {
             bestScore = score;
