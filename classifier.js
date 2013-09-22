@@ -47,7 +47,9 @@ function classify(model, features) {
 }
 
 function words(str) {
-  return (str.match(/\w+(?:['\-]\w+)*/g) || []).map(String.toLowerCase || function(x) { return x.toLowerCase() });
+  return (str.match(/\w+(?:['\-]\w+)*/g) || []).map(function(word) {
+    return word.toLowerCase();
+  });
 }
 
 var m = new Model(4);
