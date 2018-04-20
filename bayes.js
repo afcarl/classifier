@@ -55,7 +55,7 @@ function hash(string) {
 
   const n = string.length;
   for(let i = 0; i < n; i++) {
-    hash = Math.imul(hash, 33) ^ string.charCodeAt(i);
+    hash = ((hash << 5) + hash) ^ string.charCodeAt(i);
   }
 
   return hash >>> 0;
